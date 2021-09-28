@@ -1,94 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Comments = ({ commentaire }) => {
+const Comments = ({ commentair, add }) => {
+  const [name, setName] = useState({ newComment: "" });
+  const handleChange = (e) => {
+    setName({ newComment: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    add(name.newComment);
+    setName({ newComment: "" });
+  };
+
+  const [shows, setShows] = useState({ show: true });
+
+  const handleShowPerson = () => {
+    setShows({ shows: !shows.show });
+  };
   return (
     <div>
-      {commentaire.map((el) => (
+      <div className="divComm">
+        <img
+          className="imgcomm"
+          src=" https://yt3.ggpht.com/yti/APfAmoG7rAAZHK3ivvaDC5rgprEcfl2GKSoI464T6g=s88-c-k-c0x00ffffff-no-rj"
+          alt=""
+        />
+        <div style={{ display: "block" }}>
+          <input
+            onClick={handleShowPerson}
+            placeholder="Ajouter un commentaire public... "
+            style={{
+              width: "850px",
+              border: 0,
+              borderBottom: "2px solid grey",
+              outline: 0,
+              fontFamily: "Roboto, Noto, sans-serif",
+              fontSize: "14px",
+              fontWeight: 400,
+              marginLeft: 15,
+              lineHeight: "20px",
+              color: "grey",
+              padding: "7px 7px",
+              background: "transparent",
+              marginBottom: "40px",
+              transition: "borderColor 0.2s",
+            }}
+            type="text"
+            value={name.newComment}
+            onChange={handleChange}
+          ></input>
+
+          {!shows.show ? (
+            <div>
+              <hr className="hr1"
+                
+              />
+
+              <button
+                className="btncomm"
+                /* Gray */
+                onClick={handleSubmit}
+              >
+                AJOUTER UN COMMENTAIRE
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+      {commentair.map((el) => (
         <div style={{ display: "flex" }}>
-          <img
-            style={{ width: 40, height: 40, borderRadius: 90 }}
-            src={el.imgs}
-            alt=""
-          />
-          <div style={{ display: "block", marginLeft: 15 }}>
-            <div style={{ display: "flex" }}>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  lineHeight: "18px",
-                  color: " rgb(3, 3, 3)",
-                }}
-              >
-                {" "}
-                {el.name}
-              </p>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  lineHeight: "18px",
-                  color: " rgb(3, 3, 3)",
-                  marginLeft: 5,
-                }}
-              >
-                {el.per}
-              </p>
+          <img className="imgcomm" src={el.imgs} alt="" />
+          <div className="divc1">
+            <div className="divc2">
+              <p className="pco1"> {el.name}</p>
+              <p className="pc2">{el.per}</p>
             </div>
 
             <p>{el.body}</p>
-            <div style={{ display: "flex" }}>
-              <div style={{ display: "flex" }}>
-                {" "}
+            <div  className="divc4">
+              <div className="divc4">
                 {el.like}
-                <p
-                  style={{
-                    fontFamily: "Roboto, Arial, sans-serif",
-                    fontSize: "12px",
-                    fontWeight: 400,
-                    lineHeight: "18px",
-                    color: "rgb(96, 96, 96)",
-                    marginLeft: 5,
-                  }}
-                >
-                  1,6 k
-                </p>
+                <p className="pc3">1,6 k</p>
               </div>
-              <div style={{ marginLeft: 20, display: "flex" }}>
-                {" "}
+              <div className="divc3">
                 {el.dilike}
-                <p
-                  style={{
-                    fontFamily: "Roboto, Arial, sans-serif",
-                    fontSize: "12px",
-                    fontWeight: 400,
-                    lineHeight: "18px",
-                    color: "rgb(96, 96, 96)",
-                    marginLeft: 5,
-                  }}
-                >
-                  Répondre
-                </p>
+                <p className="pc3">Répondre</p>
               </div>
-              
             </div>
-           <div style={{display:"flex"}}>
-               <div style={{width:15,height:15,color:"rgb(6, 95, 212)",marginTop:-5}}>{el.but}</div>
-        <p  style={{
-                    fontFamily: "Roboto, Arial, sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    lineHeight: "20px",
-                    color: "rgb(6, 95, 212)",
-                    marginLeft: 5,
-                    
-                  }}>{el.aff}</p>
-
-           </div>
+            <div className="divc4">
+              <div className="divc5">{el.but}</div>
+              <p className="pc4">{el.aff}</p>
+            </div>
           </div>
-         
         </div>
       ))}
     </div>

@@ -5,13 +5,17 @@ import { RiVideoAddLine } from "react-icons/ri";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { GrApps } from "react-icons/gr";
 
-import React from "react";
-import { Form, FormControl, Nav, Navbar } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, FormControl, Modal,Button,Nav, Navbar } from "react-bootstrap";
 
-const NavBare = () => {
+const NavBare = ({onc}) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
-      <Navbar
+      <Navbar 
         style={{ backgroundColor: "#FFFFFF", position: "fixed", width: "100%" }}
       >
         <Navbar.Brand href="#">
@@ -138,6 +142,7 @@ const NavBare = () => {
                 height: "20px",
                 marginLeft: "30px",
               }}
+              onClick={handleShow}
             />
             <GrApps
               style={{ width: "20px", height: "20px", marginLeft: "30px" }}
@@ -158,7 +163,8 @@ const NavBare = () => {
           </div>
         </Navbar.Collapse>
       </Navbar>
-    </div>
+      </div>
+    
   );
 };
 

@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { MdPlaylistAdd } from "react-icons/md";
+import NavBare from "./NavBare";
 
-const SuggessioVedio = ({ listVedio }) => {
+const SuggessioVedio = ({ listVedio, addv }) => {
+  const [srcve, setSrcve] = useState("");
+  const [titleve, settiTleve] = useState("");
+  const [dat, setDat] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addv(srcve, titleve, dat);
+    setSrcve("");
+    settiTleve("");
+    setDat("");
+  };
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div style={{ marginTop: "80px" }}>
+      <MdPlaylistAdd className="btn1" onClick={handleShow}>
+        add
+      </MdPlaylistAdd>
+
       {listVedio.map((el) => (
-        <div style={{ display: "flex" }}>
+        <div className="div4">
           <iframe
             style={{ marginBottom: 20 }}
             width="150"
@@ -16,79 +38,98 @@ const SuggessioVedio = ({ listVedio }) => {
 			   encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <div style={{ display: "block", marginLeft:10 }}>
-            <p
-              style={{
-                fontFamily: "Roboto, Arial, sans-serif",
-                fontSize: "14px",
-                fontWeight: 500,
-                lineHeight: "18px",
-                color: " rgb(3, 3, 3)",
-              }}
-            >
-              {el.titleve}
-            </p>
-            <div style={{ display: "flex" ,marginTop:"-10px"}}>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  lineHeight: "18px",
-                  color: " rgb(96, 96, 96)",
-                }}
-              >
-                {el.pt}
-              </p>
-              <div
-                style={{
-                  color: "#606060",
-                  marginTop: "-5px",
-                  marginLeft: "5",
-                  height: "10",
-                }}
-              >
-                {el.ic}
-              </div>
+          <div className="div2">
+            <p className="pved">{el.titleve}</p>
+            <div className="div3">
+              <p className="pved">{el.pt}</p>
+              <div className="div1">{el.ic}</div>
             </div>
-            <div style={{ display: "flex",marginTop:"-15px" }}>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  lineHeight: "18px",
-                  color: " rgb(96, 96, 96)",
-                }}
-              >
-                {el.vu}
-              </p>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  lineHeight: "18px",
-                  color: " rgb(96, 96, 96)",
-                }}
-              >
-                {el.poi}
-              </p>
-              <p
-                style={{
-                  fontFamily: "Roboto, Arial, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  lineHeight: "18px",
-                  color: " rgb(96, 96, 96)",
-                }}
-              >
-                {el.dat}
-              </p>
+            <div className="divv">
+              <p className="pved">{el.vu}</p>
+              <p className="pved">{el.poi} </p>
+              <p className="pved">{el.dat} </p>
             </div>
           </div>
         </div>
       ))}
+      {/* {shows.show? */}
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title> Add new Movies</Modal.Title>
+        </Modal.Header>
+        <Form
+          style={{ marginLeft: "10px", marginTop: "10px" }}
+          onSubmit={handleSubmit}
+        >
+          <Form.Group
+            as={Row}
+            className="mb-3"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="2">
+              srcv
+            </Form.Label>
+            <Col sm="10">
+              <input
+                type="url"
+                value={srcve}
+                placeholder="srcv"
+                onChange={(e) => setSrcve(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group
+            as={Row}
+            className="mb-3"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="2">
+              titlev
+            </Form.Label>
+            <Col sm="10">
+              <input
+                type="url"
+                value={titleve}
+                placeholder="image"
+                onChange={(e) => settiTleve(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group
+            as={Row}
+            className="mb-3"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="2">
+              date
+            </Form.Label>
+            <Col sm="10">
+              <input
+                type="date"
+                value={dat}
+                placeholder="years"
+                onChange={(e) => setDat(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+        </Form>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleClose}
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* :null} */}
+      <NavBare onc={handleSubmit} />
     </div>
   );
 };
